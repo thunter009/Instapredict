@@ -41,7 +41,6 @@ def get_photos(num):
 
                         image = photo.find_element_by_xpath('./div[@class="photo"]/a/img')
                         src = image.get_attribute('src')
-#                        urllib.urlretrieve(src, str(counter) + '.jpg') #I'll do more with this later
                         print 'image ok'
                         
                         time_post = photo.find_element_by_xpath('./div[@class="photo-info"]/div[@class="user-info-wrap"]/div[@class="user-info"]/div[@class="upload-time"]').text
@@ -82,6 +81,7 @@ def get_photos(num):
                         #problems with an encoding error when writing a row here
                         try:
                             writer.writerow(dic.values())
+                            urllib.urlretrieve(src, str(counter) + ".jpg") #I'll do more with this later
                             print 'write good'
                         except:
                             print 'nah'
