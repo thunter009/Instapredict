@@ -49,7 +49,13 @@ def scrub_filter(df, col='filters'):
 
 
 def scrub_hashtags(df, col='hashtags'):
-    df[col] = df[col].apply(lambda x: [y.replace('#', '') for y in x.split()])
+    df[col] = df[col].apply(lambda x: [y.replace('#', '')
+                                       for y in str(x).split()])
+    return df
+
+
+def scrub_scrape_time(df, col='scrape_time'):
+    df[col] = pd.to_datetime(df[col])
     return df
 
 
@@ -67,6 +73,7 @@ def scrub(df):
         scrub_user,
         scrub_filter,
         scrub_hashtags,
+        scrub_scrape_time,
     ]
 
     for func in scrub:
