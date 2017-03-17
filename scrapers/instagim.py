@@ -13,7 +13,7 @@ driver.get('http://www.instagim.com/tag/nature')
 #create the csv
 csv_file = open('instagim.csv', 'wb')
 writer = csv.writer(csv_file)
-writer.writerow(['image','hashtags', 'comments', 'caption','user','filter','time', 'likes'])
+writer.writerow(['index','image','hashtags', 'comments', 'caption','user','filter','time', 'likes'])
 
 #click the load more photos button on the bottom as many times as you like 
 #for i in range(0,75):
@@ -62,6 +62,7 @@ def get_photos(num):
                         likes = photo.find_element_by_xpath('./div[@class="photo-info"]/div[@class="photo-footer clearfix"]/div[@class="soc-wrap"]/a[@class="photo-likes"]/span[@class="icon-thumbs-up-alt"]').text
                         print 'likes ok'
 
+                        dic['index'] = index
                         dic['image'] = src
                         print 'img good'
                         dic['user'] = user.encode('ascii', 'ignore')
@@ -81,7 +82,7 @@ def get_photos(num):
                         #problems with an encoding error when writing a row here
                         try:
                             writer.writerow(dic.values())
-                            urllib.urlretrieve(src, str(counter) + ".jpg") #I'll do more with this later
+                            urllib.urlretrieve(src, str(index) + ".jpg") #I'll do more with this later
                             print 'write good'
                         except:
                             print 'nah'
