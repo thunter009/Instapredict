@@ -1,4 +1,6 @@
+*.DS_Store
 */.DS_Store
 *.ipynb_checkpoints/*.ipynb
 data/ht2014/*.csv
 *.pyc
+scripts/__pycache__/*.pyc

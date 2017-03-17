@@ -36,7 +36,6 @@ class UserSpider(scrapy.Spider):
             return obj
 
         def clean_results(item):
-            # import ipdb; ipdb.set_trace()
             for k in item.keys():
                 try:
                     if type(item[k]) is list:
