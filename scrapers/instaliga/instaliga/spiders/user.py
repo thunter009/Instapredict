@@ -2,6 +2,7 @@
 import scrapy
 import pandas as pd
 from instaliga.items import InstaligaItem
+import datetime as dt
 
 
 class UserSpider(scrapy.Spider):
@@ -55,6 +56,7 @@ class UserSpider(scrapy.Spider):
             '//div[@class="userMainInfo__bio"]/strong/text()').extract()
         u['bio'] = gxp(
             '//div[@class="userMainInfo__bio"]/text()').extract()
+        u['scrape_time'] = dt.datetime.now()
 
         # automatically updates InstaligaItem object for social info
         social_info = get_social_info(
