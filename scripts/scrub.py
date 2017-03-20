@@ -59,6 +59,19 @@ def scrub_scrape_time(df, col='scrape_time'):
     return df
 
 
+def deduplicate(df):
+    df.drop_duplicates(subset=['caption',
+                               'comments',
+                               'filters',
+                               'image',
+                               'likes',
+                               'time',
+                               'user'],
+                       inplace=True,
+                       )
+    return df
+
+
 def scrub(df):
     """
     scrub runs all scrubbing functions on an input dataframe and returns a 
@@ -66,6 +79,7 @@ def scrub(df):
     """
 
     scrub = [
+        deduplicate,
         scrub_caption_emoji,
         scrub_caption_hashtags,
         scrub_shoutouts,
