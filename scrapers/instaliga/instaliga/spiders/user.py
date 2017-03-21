@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 import scrapy
 import pandas as pd
-from instaliga.items import InstaligaItem
+from instaliga.items import InstaligaItem, TopPhotosItem
 import datetime as dt
+import re
 
 
 class UserSpider(scrapy.Spider):
     name = "user"
     allowed_domains = ["instaliga.com"]
-    users = pd.read_csv('../../data/users.csv')
-    start_urls = ['https://www.instaliga.com/' +
-                  str(x) for x in users['users']]
+    users = pd.read_csv('../../data/users.csv')['users'].unique()
+    start_urls = ['https://www.instaliga.com/' + str(x) for x in users]
 
     def parse(self, response):
 
@@ -47,7 +47,42 @@ class UserSpider(scrapy.Spider):
                     continue
             return item
 
+        def clean_top_n_pics(item):
+
+            def caption(item, k='caption'):
+                # condensed = [x.strip() for x in item[k]]
+                pass
+
+            def likes(item, k='likes'):
+                item[k] = [int(x) for x in item[k]]
+
+            def comments(item, k='comments'):
+                item[k] = [int(x.strip().replace(r'\xa', '')) for x in item[k]]
+
+            def image(item, k='image'):
+                item[k] = item[k]
+
+            def hashtags(item, k='hashtags'):
+                pat = re.compile(r'[#]\w+')
+                clean = [x.replace('\n', ' ') for x in item[k]]
+                item[k] = [x for x in map(
+                    lambda x: [y.replace('#', '') for y in pat.findall(x)], clean)]
+
+            mapper = {
+                'caption': caption(item),
+                'likes': likes(item),
+                'comments': comments(item),
+                'image': image(item),
+                'hashtags': hashtags(item)
+            }
+
+            for key in item.keys():
+                mapper[key]
+
+            return item
+
         u = InstaligaItem()
+        p = TopPhotosItem()
         # assumes a list of 1
         # import ipdb; ipdb.set_trace()
         u['user'] = gxp(
@@ -67,4 +102,15 @@ class UserSpider(scrapy.Spider):
         u = update_fields(u, social_info)
         u = clean_results(u)
 
+        p['image'] = gxp(
+            '//ul[contains(@class, "mediaList")]/li/div/a/img/@src').extract()
+        # p['caption'] = gxp(
+        # '//li[@class = "element_comments__item"]/text()').extract()
+        p['hashtags'] = gxp(
+            '//a[@class = "element__image-wrapper"]/@title').extract()
+        p['likes'] = gxp('//span[@class = "likeCount"]/text()').extract()
+        p['comments'] = gxp(
+            '//div[@class = "activities actionBlock"]/text()').extract()
+
+        u['top_N_photos'] = clean_top_n_pics(p)
         yield u

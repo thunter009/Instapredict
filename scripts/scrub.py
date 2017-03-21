@@ -59,17 +59,14 @@ def scrub_scrape_time(df, col='scrape_time'):
     return df
 
 
-def deduplicate(df):
-    df.drop_duplicates(subset=['caption',
-                               'comments',
-                               'filters',
-                               'image',
-                               'likes',
-                               'time',
-                               'user'],
-                       inplace=True,
-                       )
-    return df
+def deduplicate(df, sub=['caption',
+                         'comments',
+                         'filters',
+                         'image',
+                         'likes',
+                         'time',
+                         'user']):
+    return df.drop_duplicates(subset=sub)
 
 
 def scrub(df):
