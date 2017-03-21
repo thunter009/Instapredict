@@ -9,12 +9,11 @@ def num_faces(gray):
 	# Detect faces in the image
 	faces = faceCascade.detectMultiScale(
 	    gray,
-	    scaleFactor=1.1,
-	    minNeighbors=5,
+	    scaleFactor=1.3,
+	    minNeighbors=4,
 	    minSize=(30, 30),
-	    flags = cv2.cv.CV_HAAR_SCALE_IMAGE
+	    flags = cv2.CASCADE_SCALE_IMAGE
 	)
-
 	return len(faces)
 
 
