@@ -8,6 +8,7 @@ class InstaligaItem(Item):
     scrape_time = Field()
     top_N_photos = Field()
 
+
 class TopPhotosItem(Item):
     image = Field()
     # caption = Field()
