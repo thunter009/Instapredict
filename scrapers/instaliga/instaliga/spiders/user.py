@@ -14,17 +14,14 @@ class UserSpider(scrapy.Spider):
 
     def parse(self, response):
 
-        def gxp(xpath):
-            return response.xpath(xpath)
-
         def get_social_info(key_xp, vals_xp):
             """
             Function to pull the posts, followers, following information and
             return a dict of key: value pairs
             """
-            keys = gxp(key_xp).extract()
+            keys = response.xpath(key_xp).extract()
             keys = [x.replace(' ', '_') for x in keys if x != '']
-            vals = gxp(vals_xp).extract()
+            vals = response.xpath(vals_xp).extract()
             return {keys: vals for keys, vals in list(zip(keys, vals))}
 
         def update_fields(obj, update, datatype='int'):
@@ -43,7 +40,7 @@ class UserSpider(scrapy.Spider):
                         item[k] = item[k][0].strip()
                     elif type(item[k]) is str:
                         item[k] = item[k].strip()
-                except:
+                except Exception:
                     continue
             return item
 
@@ -66,7 +63,8 @@ class UserSpider(scrapy.Spider):
                 pat = re.compile(r'[#]\w+')
                 clean = [x.replace('\n', ' ') for x in item[k]]
                 item[k] = [x for x in map(
-                    lambda x: [y.replace('#', '') for y in pat.findall(x)], clean)]
+                    lambda x:
+                        [y.replace('#', '') for y in pat.findall(x)], clean)]
 
             mapper = {
                 'caption': caption(item),
@@ -85,11 +83,11 @@ class UserSpider(scrapy.Spider):
         p = TopPhotosItem()
         # assumes a list of 1
         # import ipdb; ipdb.set_trace()
-        u['user'] = gxp(
+        u['user'] = response.xpath(
             '//h1[@class="userMainInfo__name"]/text()').extract()
-        u['full_name'] = gxp(
+        u['full_name'] = response.xpath(
             '//div[@class="userMainInfo__bio"]/strong/text()').extract()
-        u['bio'] = gxp(
+        u['bio'] = response.xpath(
             '//div[@class="userMainInfo__bio"]/text()').extract()
         u['scrape_time'] = dt.datetime.now()
 
@@ -102,14 +100,15 @@ class UserSpider(scrapy.Spider):
         u = update_fields(u, social_info)
         u = clean_results(u)
 
-        p['image'] = gxp(
+        p['image'] = response.xpath(
             '//ul[contains(@class, "mediaList")]/li/div/a/img/@src').extract()
-        # p['caption'] = gxp(
+        # p['caption'] = response.xpath(
         # '//li[@class = "element_comments__item"]/text()').extract()
-        p['hashtags'] = gxp(
+        p['hashtags'] = response.xpath(
             '//a[@class = "element__image-wrapper"]/@title').extract()
-        p['likes'] = gxp('//span[@class = "likeCount"]/text()').extract()
-        p['comments'] = gxp(
+        p['likes'] = response.xpath(
+            '//span[@class = "likeCount"]/text()').extract()
+        p['comments'] = response.xpath(
             '//div[@class = "activities actionBlock"]/text()').extract()
 
         u['top_N_photos'] = clean_top_n_pics(p)

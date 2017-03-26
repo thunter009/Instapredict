@@ -4,3 +4,4 @@
 data/ht2014/*.csv
 *.pyc
 scripts/__pycache__/*.pyc
+data/old/*

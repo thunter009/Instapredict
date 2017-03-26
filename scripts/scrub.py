@@ -93,3 +93,4 @@ def scrub(df):
         except Exception as e:
             print("error in {} \n{}".format(func, e))
             continue
+    return df
