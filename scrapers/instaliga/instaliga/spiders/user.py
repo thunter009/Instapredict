@@ -9,7 +9,7 @@ import re
 class UserSpider(scrapy.Spider):
     name = "user"
     allowed_domains = ["instaliga.com"]
-    users = pd.read_csv('../../data/user_Mar18.csv')['0'].unique()
+    users = pd.read_csv('../../data/Fri_Mar24_users.csv')['Fri_Mar24.user'].unique()
     start_urls = ['https://www.instaliga.com/' + str(x) for x in users]
 
     def parse(self, response):
