@@ -4,7 +4,7 @@ import re
 
 def scrub_caption_text(df, col='caption'):
     # scrub caption for text only
-    df[col] = df[col].apply(lambda x: x.strip().replace('\n', ' '))
+    df[col] = df[col].apply(lambda x: str(x).strip().replace('\n', ' '))
     return df
 
 
@@ -19,7 +19,7 @@ def scrub_caption_hashtags(df, col='caption'):
     df = scrub_caption_text(df)
     pat = re.compile(r'[#]\w+')
     df['caption_hashtags'] = df[col].apply(
-        lambda x: [y.replace('#', '') for y in pat.findall(x)])
+        lambda x: [str(y).replace('#', '') for y in pat.findall(x)])
     return df
 
 
@@ -33,18 +33,18 @@ def scrub_shoutouts(df, col='caption'):
     df = scrub_caption_text(df)
     pat = re.compile(r'[@]\w+')
     df['shoutouts'] = df[col].apply(
-        lambda x: [y.replace('@', '') for y in pat.findall(x)])
+        lambda x: [str(y).replace('@', '') for y in pat.findall(x)])
     return df
 
 
 def scrub_user(df, col='user'):
-    df[col] = df[col].apply(lambda x: x.lstrip('@'))
+    df[col] = df[col].apply(lambda x: str(x).lstrip('@'))
     return df
 
 
 def scrub_filter(df, col='filters'):
     # drop 'Filter' from filters columns
-    df[col] = df[col].apply(lambda x: x.replace('Filter', ''))
+    df[col] = df[col].apply(lambda x: str(x).replace('Filter', ''))
     return df
 
 
