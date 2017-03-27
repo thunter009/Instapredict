@@ -10,8 +10,9 @@ from PIL import ImageStat
 import cv2
 from face_detect import *
 
-def load_image( infilename ) :
-    img = Image.open( infilename )
+
+def load_image(infilename):
+    img = Image.open(infilename)
     return img
 
 
@@ -55,8 +56,8 @@ def image_extract(path):
                 'R_stddev': ImageStat.Stat(im).stddev[0],
                 'G_stddev': ImageStat.Stat(im).stddev[1],
                 'B_stddev': ImageStat.Stat(im).stddev[2],
-                'luminance': 0.299*ImageStat.Stat(im).sum[0] + 0.587*ImageStat.Stat(im).sum[1] + 0.114*ImageStat.Stat(im).sum[2],
-                'percieved_luminance': 0.299*ImageStat.Stat(im).sum2[0] + 0.587*ImageStat.Stat(im).sum2[1] + 0.114*ImageStat.Stat(im).sum2[2],
+                'luminance': 0.299 * ImageStat.Stat(im).sum[0] + 0.587 * ImageStat.Stat(im).sum[1] + 0.114 * ImageStat.Stat(im).sum[2],
+                'percieved_luminance': 0.299 * ImageStat.Stat(im).sum2[0] + 0.587 * ImageStat.Stat(im).sum2[1] + 0.114 * ImageStat.Stat(im).sum2[2],
                 'blur': cv2.Laplacian(cv_im, cv2.CV_64F).var(),
                 'num_faces': num_faces(gray)
             }

@@ -9,11 +9,15 @@ import re
 class UserSpider(scrapy.Spider):
     name = "user"
     allowed_domains = ["instaliga.com"]
+<<<<<<< HEAD
 #<<<<<<< HEAD
     users = pd.read_csv('../../data/Sun_Mar26_users.csv')['Sun_Mar26.user'].unique()
 #=======
  #   users = pd.read_csv('../../data/Fri_Mar24_users.csv')['Fri_Mar24.user'].unique()
 #>>>>>>> 972e13572ba640724a3eb1a3da1e74d5f262e311
+=======
+    users = pd.read_csv('../../data/users_Insta.csv')['user'].unique()
+>>>>>>> 9f61f8c77b4d981c07ebc2655f44a8348502f959
     start_urls = ['https://www.instaliga.com/' + str(x) for x in users]
 
     def parse(self, response):
