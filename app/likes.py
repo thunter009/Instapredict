@@ -3,7 +3,7 @@ import ast
 
 
 def likes(df):
-    df['top_N_photos'] = [ast.literal_eval(x) for x in df['top_N_photos']]
+
     df['list_likes'] = [x['likes'] for x in df['top_N_photos']]
     df['mean_likes'] = [np.mean(x) if len(
         x) > 0 else 0 for x in df['list_likes']]

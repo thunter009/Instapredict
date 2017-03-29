@@ -2,6 +2,7 @@ from flask import render_template, request, redirect, url_for, session
 from app import app
 import os
 import pandas as pd
+from app.likes import likes
 
 from app.input_merge_predict import merge_pred as mp
 from app.image_extractor import image_extract as ie
@@ -57,7 +58,7 @@ def results():
     APP_ROOT = os.path.dirname(os.path.abspath(__file__))
     target = os.path.join(APP_ROOT, 'images/image1.jpg')
 
-    user = pd.read_json(session.get('df'))
+    user = likes(pd.read_json(session.get('df')))
     image = ie(target)
     results = mp(user, image)
 
