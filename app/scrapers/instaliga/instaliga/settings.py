@@ -14,20 +14,20 @@ BOT_NAME = 'instaliga'
 SPIDER_MODULES = ['instaliga.spiders']
 NEWSPIDER_MODULE = 'instaliga.spiders'
 
-ITEM_PIPELINES = ['stack.pipelines.MongoDBPipeline', ]
+# ITEM_PIPELINES = ['stack.pipelines.MongoDBPipeline', ]
 
-MONGODB_SERVER = "localhost"
-MONGODB_PORT = 27017
-MONGODB_DB = "instagim"
-MONGODB_COLLECTION = "data"
+# MONGODB_SERVER = "localhost"
+# MONGODB_PORT = 27017
+# MONGODB_DB = "instagim"
+# MONGODB_COLLECTION = "data"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'instaliga (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
-# FEED_URI = 'output.json'
-# FEED_FORMAT = 'json'
+FEED_URI = 'output.json'
+FEED_FORMAT = 'json'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
