@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 
 
   <style>
@@ -35,25 +37,59 @@
   bottom: 0;
   right: 0;
 }
+
+#element1 {display:inline-block;margin-right:15px; width:1px; height: 64px; background-color:none; color: white;} 
+#element2 {display:inline-block; width:200px; background-color:none;} 
+
+
+#centerstuff {
+    float: center;
+}
+#centerstuff1 {
+    float: center;
+    vertical-align: top;
+}
+h1 {
+    font-family: "Arial Black";
+    size: 24px;
+
+}
+
+h3 {
+    font-family: "Arial Black";
+    size: 24px;
+}
+
+#element3 {display:inline; margin-right:50px; width: 100px; height: 3px; background-color:none; color: white;} 
+
+
+
   </style>
   <body>
 
     <div class="page-wrap">
       <div class="header">
-        <h3 style="color:#FFFFFF" class="text-muted">InstaPredict</h3>
+        <div id="element1"> <i class="fa fa-angellist"></i> </div>
+        <div id="element2"> <h3 style="color:#FFFFFF" class="text-muted">InstaPredict</h3> </div>
       </div>
 
       <div>
-        <h1 align="center" style="color:#FFFFFF">Instagram Likes Prediction</h1>
-        <p class="lead"></p>
-      </div>
-      <div style="width: 300px; margin: 130px auto 0 auto; ">
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <div id="centerstuff">
+        <h1 align="center" style="color:#FFFFFF">Instagram Likes Prediction</h1></div>
+        <div id="centerstuff1">
+      <div style="width: 300px; margin: 0px auto 0 auto; padding-left: 100px">
         <div style="color:#FFFFFF;">
-          <form action="/upload" method="POST" enctype="multipart/form-data">
-            Select image to upload:
-            <input type="file" name="fileToUpload" id="fileToUpload">
-            <input type="submit" value="Upload Image" name="submit">
-          </form>
+          <form id = "upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+            <h4>Select image to upload:</h4>
+            <div id="element3"><input type="file" name="file" accept = "image/*"> 
+            <input type="submit" value="send">
+          </form></div>
 
           <form method='POST' action='/'>
             Instagram Handle:
