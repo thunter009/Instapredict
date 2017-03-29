@@ -18,7 +18,8 @@ def index():
             os.system(call)
             # import ipdb; ipdb.set_trace()
             session['user_data'] = pd.read_json(
-                'app/scrapers/instaliga/output.csv')
+                'app/scrapers/instaliga/output.json')
+            import ipdb; ipdb.set_trace()
             return redirect(url_for('results'))
 
     else:
