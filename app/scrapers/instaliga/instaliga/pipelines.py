@@ -2,11 +2,26 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 from scrapy.exporters import CsvItemExporter, JsonItemExporter
 import json
+import pymongo
+from scrapy.conf import settings
+# Connection to Mongo DB
 
 
 class InstaligaPipeline(object):
     def process_item(self, item, spider):
         return item
+
+
+class MongoDBPipeline(object):
+
+    def __init__(self):
+        connection = pymongo.MongoClient(
+            settings['MONGODB_SERVER'],
+            settings['MONGODB_PORT']
+        )
+        db = connection[settings['MONGODB_DB']]
+        self.collection = db[settings['MONGODB_COLLECTION']]
+
 
 
 class CSVPipeline(object):
