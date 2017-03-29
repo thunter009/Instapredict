@@ -64,7 +64,8 @@ def merge_pred(scrape_df, image_df):
     ])
 
     # load the model
-    gb_regressor = pickle.load(open('gbr_model.sav', 'rb'))
+    with open('gbr_model.sav','rb') as f:
+        gb_regressor = pickle.load(f, encoding = 'latin1')
 
     # call model on input array to obtain result
     predicted_likes = gb_regressor.predict(input_array)
