@@ -1,6 +1,8 @@
 import cv2
+import os
 
-cascPath = './haarcascade_frontalface_default.xml'
+ROOT = os.path.dirname(os.path.abspath(__file__))
+cascPath = os.path.join(ROOT, 'haarcascade_frontalface_default.xml')
 
 # Create the haar cascade
 faceCascade = cv2.CascadeClassifier(cascPath)

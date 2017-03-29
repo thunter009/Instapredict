@@ -1,6 +1,6 @@
 import numpy as np
-from image_extractor import *
-from likes import likes
+from app.image_extractor import *
+from app.likes import likes
 import pickle
 
 
@@ -14,8 +14,8 @@ def merge_pred(scrape_df, image_df):
 
     # get image directory
 
-    im_fname
-    image_df = image_extract(im_fname)
+    # im_fname
+    # image_df = image_extract(im_fname)
     scrape_df = likes(scrape_df)
 
     # combine and scrub

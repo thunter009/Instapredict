@@ -1,14 +1,10 @@
-'''
-Pass in file directory and returns data frame with 
-'''
 import glob
 import re
 import pandas as pd
-import numpy as np
 from PIL import Image
 from PIL import ImageStat
 import cv2
-from face_detect import *
+from app.face_detect import *
 
 
 def load_image(infilename):
