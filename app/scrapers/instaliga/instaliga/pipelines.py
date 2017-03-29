@@ -62,6 +62,7 @@ class JsonItemExporter(JsonItemExporter):
         self.file.write("]")
 
     def export_item(self, item):
+        import ipdb; ipdb.set_trace()
         if self.first_item:
             self.first_item = False
         else:
