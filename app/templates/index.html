@@ -85,11 +85,13 @@ h3 {
         <div id="centerstuff1">
       <div style="width: 300px; margin: 0px auto 0 auto; padding-left: 100px">
         <div style="color:#FFFFFF;">
-          <form id = "upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+          <form id = "upload-form" action="{{ url_for('index') }}" method="POST" enctype="multipart/form-data">
             <h4>Select image to upload:</h4>
-            <div id="element3"><input type="file" name="file" accept = "image/*"> 
-            <input type="submit" value="send">
-          </form></div>
+            <div id="element3">
+              <input type="file" name="file" accept = "image/*"> 
+              <input type="submit" value="send">
+            </div>
+          </form>
 
           <form method='POST' action='/'>
             Instagram Handle:
