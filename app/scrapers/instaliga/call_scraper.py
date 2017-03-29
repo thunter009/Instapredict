@@ -1,11 +1,11 @@
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 import os
+import sys
 
 os.chdir('./app/scrapers/instaliga')
-
-process = CrawlerProcess(get_project_settings())
-
-# 'followall' is the name of one of the spiders of the project.
-process.crawl('user')
+settings = get_project_settings()
+# settings.set('ITEM_PIPELINES', 'instaliga.pipelines.BeerPipeline', priority=1)
+process = CrawlerProcess(settings)
+process.crawl('user', user=sys.argv[1])
 process.start()

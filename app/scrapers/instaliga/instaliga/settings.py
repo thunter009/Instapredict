@@ -20,6 +20,7 @@ NEWSPIDER_MODULE = 'instaliga.spiders'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
+# FEED_URI = 'stdout'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -64,9 +65,9 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'instaliga.pipelines.SomePipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'instaliga.pipelines.BeerPipeline': 100,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
