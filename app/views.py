@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, session
+from flask import render_template, request, redirect, url_for
 from app import app
 import os
 import pandas as pd
@@ -6,21 +6,23 @@ import pandas as pd
 # import image_extractor
 
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+OUTPUT_PATH = 'app/scrapers/instaliga/output.json'
+
+
+def call():
+    handle = request.form['handle']
+    os.system('python ./app/scrapers/instaliga/call_scraper.py {:}'
+              .format(handle))
 
 
 @app.route("/", methods=['POST', "GET"])
 def index():
     if request.method == 'POST':
         if request.form['submit'] == "Submit":
-            handle = request.form['handle']
-            call = 'python ./app/scrapers/instaliga/call_scraper.py {:}' \
-                .format(handle)
-            os.system(call)
-            # import ipdb; ipdb.set_trace()
-            session['user_data'] = pd.read_json(
-                'app/scrapers/instaliga/output.csv')
+            import ipdb; ipdb.set_trace()
+            df = pd.read_json(OUTPUT_PATH)
+            os.remove(OUTPUT_PATH)
             return redirect(url_for('results'))
-
     else:
         return render_template('index.html')
 
@@ -39,7 +41,7 @@ def upload():
         # filename = file.filename
         destination = "/".join([target, "image1.jpg"])
         file.save(destination)
-    #build redirect logic here
+    # build redirect logic here
     return render_template("complete.html")
 
 
