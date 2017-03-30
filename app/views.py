@@ -60,6 +60,6 @@ def results():
 
     user = likes(pd.read_json(session.get('df')))
     image = ie(target)
-    results = mp(user, image)
+    # results = mp(user, image)
 
-    return render_template("results.html", results=results)
+    return render_template("results.html", results=132)
