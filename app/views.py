@@ -2,6 +2,7 @@ from flask import render_template, request, redirect, url_for, session
 from app import app
 import os
 import pandas as pd
+import numpy as np
 from app.likes import likes
 
 from app.input_merge_predict import merge_pred as mp
@@ -60,6 +61,6 @@ def results():
 
     user = likes(pd.read_json(session.get('df')))
     image = ie(target)
-    # results = mp(user, image)
+    results = mp(user, image)
 
-    return render_template("results.html", results=132)
+    return render_template("results.html", results=int(np.round(results)))
